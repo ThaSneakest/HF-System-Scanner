@@ -1,0 +1,44 @@
+﻿using System;
+using System.Text.RegularExpressions;
+
+public class WhitelistReg
+{
+    public static string WHITELISTREG(string input)
+    {
+        string pattern;
+
+        input = Regex.Replace(input, @"(?i)HKLM\\Software\\Microsoft\\Active Setup\\Installed Components: \[{.+}\] -> " + @"C:\\WINDOWS\\system32\\Rundll32.exe " + @"C:\\WINDOWS\\system32\\mscories.dll,Install\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKLM\\Software\\...\\Winlogon\\GPExtensions: \[{8472C2C4-6B70-4301-A20D-A6CEA5F82B7E}\] -> " + @"C:\\WINDOWS\\system32\\StartTileData.dll \[.+\] \(Microsoft.+-> Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKLM\\Software\\...\\Authentication\\Credential Providers: \[{f64945df-4fa9-4068-a2fb-61af319edd33}\] -> " + @"C:\\WINDOWS\\system32\\rdpcredentialprovider\.dll \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKLM\\...\\Winlogon: \[Userinit\] " + @"C:\\WINDOWS\\system32\\userinit\.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKLM\\...\\Winlogon: \[Shell\] " + @"C:\\Windows\\Explorer\.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKLM\\...\\Winlogon: \[UIHost\] " + @"C:\\WINDOWS\\system32\\logonui\.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)hklm\\...\\Run: \[(HotKeysCmds|IgfxTray|Persistence)\] => [C-Z]:\\WINDOWS\\system32\\(igfxtray|hkcmd|igfxpers)\.exe \[.+\] \(Intel.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\Run: \[Sidebar\] => .+\\Windows sidebar\\Sidebar.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\Run: \[Speech Recognition\] => .+\\WINDOWS\\Speech\\Common\\sapisvr.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\RunOnce: \[WAB Migrate\] => .+\\Program Files\\Windows Mail\\wab\.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKLM\\.+\\Run: \[SecurityHealth\] => [C-Z]:\\WINDOWS\\system32\\SecurityHealthSystray\.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\SCRNSAVE.EXE -> .:\\WINDOWS\\system32\\logon.scr \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\Run: \[OneDriveSetup\] => .+\\Windows\\system32\\OneDriveSetup\.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\Run: \[OneDrive\] => .+\\Users\\.+?\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\Run: \[ctfmon.exe\] => .+WINDOWS\\system32\\ctfmon.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\Run: \[WindowsWelcomeCenter\] => rundll32.exe oobefldr.dll,ShowWelcomeCenter\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU.+Run: \[WindowsWelcomeCenter\] => rundll32.exe oobefldr.dll,ShowWelcomeCenter \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKLM\\...\\Providers\\(Internet Print Provider|LanMan Print Services): .:\\Windows\\system32\\(inetpp|win32spl).dll \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)(HKLM|HKU)\\.+\\Policies\\Explorer: \[(NoSimpleNetIDList|ClearRecentDocsOnExit|NoResolveTrack|BindDirectlyToPropertySetStorage|HonorAutoRunSetting|NoActiveDesktopChanges|NoActiveDesktop)\] (1|0)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)(HKLM|HKU)\\.+\\Policies\\Explorer: \[(ForceActiveDesktopOn|NoRecentDocsHistory|NoLowDiskSpaceChecks|NoSMHelp|StartMenuLogoff|NoFileAssociate|NoPropertiesMyComputer|NoRun|NoClose|NoDrives|NoFolderOptions|NoControlPanel)\] 0\v{2}", "");
+        input = Regex.Replace(input, @"(?i)(HKLM|HKU)\\.+\\Policies\\Explorer: \[(NoDriveTypeAutoRun|NoDriveAutoRun)\] \d+\v{2}", "");
+        input = Regex.Replace(input, @"(?i)Winlogon\\Notify\\(cryptnet|crypt32chain|cscdll|dimsntfy|ScCertProp|Schedule|sclgntfy|termsrv|wlballoon|dimsntfy|SensLogn|WgaLogon): [c-z]:\\Windows\\system32\\(cryptnet|crypt32|cscdll|dimsntfy|wlnotify|sclgntfy|WgaLogon)\.dll \[.*\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)Winlogon\\Notify\\igfxcui: [c-z]:\\Windows\\system32\\igfxdev\.dll \[.*\] \(Intel.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)Lsa: \[Authentication Packages\] msv1_0(| SshdPinAuthLsa)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)Lsa: \[Notification Packages\] (rassfm |)scecli( rassfm|)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)SecurityProviders: credssp.dll\v{2}", "");
+        input = Regex.Replace(input, @"(?i)IFEO\\svchost.exe: \[MinimumStackCommitInBytes\] 32768\v{2}", "");
+        input = Regex.Replace(input, @"(?i)SecurityProviders: msapsspc.dll, schannel.dll, digest.dll, msnsspc.dll\v{2}", "");
+        input = Regex.Replace(input, @"(?i)(HKLM|HKU)\\.+\[(DisableTaskMgr|DisableRegistryTools|NoDesktop|DisableRegedit|DisableCMD)\] 0\v{2}", "");
+        input = Regex.Replace(input, @"(?i)HKU\\.+\\RunOnce: \[mctadmin\] => [C-Z]:\\WINDOWS\\system32\\mctadmin\.exe \[.+\] \(Microsoft.+\)\v{2}", "");
+        input = Regex.Replace(input, @"(?i)IFEO\\Your Image File Name Here without a path: \[Debugger\] ntsd -d\v{2}", "");
+        input = Regex.Replace(input, @"(?i)(HKLM|HKU\\.+)\\ DisallowedCertificates: (D3FD325D0F2259F693DD789430E3A9430BB59B98|C597D4E7FF9CE5BD3EC321C11827FCA9294A6BA1|9FEB091E053D1C453C789E8E9C446D31CB177ED9|8835437D387BBB1B58FF5A0FF8D003D8FE04AED4|6B6FA65B1BDC2A0F3A7E66B590F93297B8EB56B9|6A2C691767C2F1999B8C020CBAB44756A99A0C41|3AD010247A8F1E991F8DDE5D47989CB5202E5614|1990649205B55EAB5D692E9EDB1BE0DDD3B037DE|AC06108CA348CC03B53795C64BF84403C1DBD341|929BF3196896994C0A201DF4A5B71F603FEFBF2E|22BBE981F0694D246CC1472ED2B021DC8540A22F|1916A2AF346D399F50313C393200F14140456616|2A83E9020591A55FC6DDAD3FB102794C52B24E70|2B84BFBB34EE2EF949FE1CBE30AA026416EB2216|305F8BD17AA2CBC483A4C41B19A39A0C75DA39D6|367D4B3B4FCBBC0B767B2EC0CDB2A36EAB71A4EB|3A850044D8A195CD401A680C012CB0A3B5F8DC08|40AA38731BD189F9CDB5B9DC35E2136F38777AF4|43D9BCB568E039D073A74A71D8511F7476089CC3|471C949A8143DB5AD5CDF1C972864A2504FA23C9|51C3247D60F356C7CA3BAF4C3F429DAC93EE7B74|5DE83EE82AC5090AEA9D6AC4E7A6E213F946E179|61793FCBFA4F9008309BBA5FF12D2CB29CD4151A|637162CC59A3A1E25956FA5FA8F60D2E1C52EAC6|63FEAE960BAA91E343CE2BD8B71798C76BDB77D0|6431723036FD26DEA502792FA595922493030F97|7D7F4414CCEF168ADF6BF40753B5BECD78375931|80962AE4D6C5B442894E95A13E4A699E07D694CF|86E817C81A5CA672FE000F36F878C19518D6F844|8E5BD50D6AE686D65252F843A9D4B96D197730AB|9845A431D51959CAF225322B4A4FE9F223CE6D15|B533345D06F64516403C00DA03187D3BFEF59156|B86E791620F759F17B8D25E38CA8BE32E7D5EAC2|C060ED44CBD881BD0EF86C0BA287DDCF8167478C|CEA586B2CE593EC7D939898337C57814708AB2BE|D018B62DC518907247DF50925BB09ACF4A5CB3AD|F8A54E03AADC5692B850496A4C4630FFEAA29D83|FA6660A94AB45F6A88C0D7874D89A863D74DEE97|02C2D931062D7B1DC2A5C7F5F0685064081FB221|08738A96A4853A52ACEF23F782E8E1FEA7BCED02|08E4987249BC450748A4A78133CBF041A3510033|09271DD621EBD3910C2EA1D059F99B8181405A17|09FF2CC86CEEFA8A8BB3F2E3E84D6DA3FABBF63E|23EF3384E21F70F034C467D4CBA6EB61429F174E|330D8D3FD325A0E5FDDDA27013A2E75E7130165F|374D5B925B0BD83494E656EB8087127275DB83CE|3A26012171855D4020C973BEC3F4F9DA45BD2B83|3EB44E5FFE6DC72DED703E99902722DB38FFD1CB|4822824ECE7ED1450C039AA077DC1F8AE3489BBF|4D8547B7F864132A7F62D9B75B068521F10B68E3|4DF13947493CFF69CDE554881C5F114E97C3D03B|4ED8AA06D1BC72CA64C47B1DFE05ACC8D51FC76F|587B59FB52D8A683CBE1CA00E6393D7BB923BC92|5CE339465F41A1E423149F65544095404DE6EBE2|5D5185DF1EB7DC76015422EC8138A5724BEE2886|6690C02B922CBD3FF0D0A5994DBD336592887E3F|7311E77EC400109D6A5326D8F6696204FD59AA3B|7613BF0BA261006CAC3ED2DDBEF343425357F18B|838FFD509DE868F481C29819992E38A4F7082873|8977E8569D2A633AF01D0394851681CE122683A6|8B2E65A5DA17FCCCBCDE7EF87B0C0ED5D0701F9F|915A478DB939925DA8D9AEA12D8BBA140D26599C|98A04E4163357790C4A79E6D713FF0AF51FE6927|A1505D9843C826DD67ED4EA5209804BDBB0DF502|A221D360309B5C3C4097C44CC779ACC5A9845B66|A35A8C727E88BCCA40A3F9679CE8CA00C26789FD|A7B5531DDC87129E2C3BB14767953D6745FB14A6|A81706D31E6F5C791CD9D3B1B9C63464954BA4F5|BED412B1334D7DFCEBA3015E5F9F905D571C45CF|C6796490CDEEAAB31AED798752ECD003E6866CB2|C69F28C825139E65A646C434ACA5A1D200295DB1|D0BB3E3DFBFB86C0EEE2A047E328609E6E1F185E|D2DBF71823B2B8E78F5958096150BFCB97CC388A|D43153C8C25F0041287987250F1E3CABAC8C2177|D8CE8D07F9F19D2569C2FB854401BC99C1EB7C3B|DB5042ED256FF426867B332887ECCE2D95E79614|E1F3591E769865C4E447ACC37EAFC9E2BFE4C576|E38A2B7663B86796436D8DF5898D9FAA6835B238|E95DD86F32C771F0341743EBD75EC33C74A3DED9|E9809E023B4512AA4D4D53F40569C313C1D0294D|F5A874F3987EB0A9961A564B669A9050F770308A|F92BE5266CC05DB2DC0DC3F2DC74E02DEFD949CB) \(U\)\v{2}", "");
+        return input;
+    }
+}
