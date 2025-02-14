@@ -1,0 +1,606 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5CACEEC5-47F9-4386-AE67-E4384F1EC764}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Wildlands_System_Scanner</RootNamespace>
+    <AssemblyName>Wildlands System Scanner</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v22.2" />
+    <Reference Include="DevExpress.Data.Desktop.v22.2" />
+    <Reference Include="DevExpress.Data.v22.2" />
+    <Reference Include="DevExpress.Utils.v22.2" />
+    <Reference Include="DevExpress.Sparkline.v22.2.Core" />
+    <Reference Include="DevExpress.XtraEditors.v22.2" />
+    <Reference Include="DevExpress.Printing.v22.2.Core" />
+    <Reference Include="DevExpress.Drawing.v22.2" />
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.TaskScheduler, Version=2.11.0.0, Culture=neutral, PublicKeyToken=e25603a88b3aa7da, processorArchitecture=MSIL">
+      <HintPath>..\packages\TaskScheduler.2.11.0\lib\net45\Microsoft.Win32.TaskScheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Backup\RegistryBackup.cs" />
+    <Compile Include="Backup\VolumeMappingHandler.cs" />
+    <Compile Include="Blacklist\AppDataFileBlacklist.cs" />
+    <Compile Include="Blacklist\AppDataFolderBlacklist.cs" />
+    <Compile Include="Blacklist\BlacklistedFiles.cs" />
+    <Compile Include="Blacklist\DesktopFileBlacklist.cs" />
+    <Compile Include="Blacklist\DriverBlacklist.cs" />
+    <Compile Include="Blacklist\FavoritesBlacklist.cs" />
+    <Compile Include="Blacklist\FirewallRulesBlacklist.cs" />
+    <Compile Include="Blacklist\FolderBlacklist.cs" />
+    <Compile Include="Blacklist\InstalledProgramBlacklist.cs" />
+    <Compile Include="Blacklist\LoadedModuleBlacklist.cs" />
+    <Compile Include="Blacklist\LocalAppDataFileBlacklist.cs" />
+    <Compile Include="Blacklist\LocalAppDataFolderBlacklist.cs" />
+    <Compile Include="Blacklist\ProcessBlacklist.cs" />
+    <Compile Include="Blacklist\ProgramFilesFilesBlacklist.cs" />
+    <Compile Include="Blacklist\ProgramFilesX86FilesBlacklist.cs" />
+    <Compile Include="Blacklist\ProgramsDataFileBlacklist.cs" />
+    <Compile Include="Blacklist\ProgramsDataFolderBlacklist.cs" />
+    <Compile Include="Blacklist\ProgramsFilesFolderBlacklist.cs" />
+    <Compile Include="Blacklist\ProgramsFilesX86FolderBlacklist.cs" />
+    <Compile Include="Blacklist\RegistryEntryBlacklist.cs" />
+    <Compile Include="Blacklist\ScheduledTaskBlacklist.cs" />
+    <Compile Include="Blacklist\UserRootFolderBlacklist.cs" />
+    <Compile Include="Blacklist\UsersRootFilesBlacklist.cs" />
+    <Compile Include="Constants\FileConstants.cs" />
+    <Compile Include="Constants\FolderConstants.cs" />
+    <Compile Include="Constants\NativeMethodConstants.cs" />
+    <Compile Include="Constants\RegistryConstants.cs" />
+    <Compile Include="Constants\StringConstants.cs" />
+    <Compile Include="Constants\SystemConstants.cs" />
+    <Compile Include="Handlers\FileHandler.cs" />
+    <Compile Include="NativeMethods\Advapi32NativeMethods.cs" />
+    <Compile Include="NativeMethods\Crypt32NativeMethods.cs" />
+    <Compile Include="NativeMethods\Flags.cs" />
+    <Compile Include="NativeMethods\IphlpapiNativeMethods.cs" />
+    <Compile Include="NativeMethods\Kernel32NativeMethods.cs" />
+    <Compile Include="NativeMethods\Netapi32NativeMethods.cs" />
+    <Compile Include="NativeMethods\NtdllNativeMethods.cs" />
+    <Compile Include="NativeMethods\Ole32NativeMethods.cs" />
+    <Compile Include="NativeMethods\PsapiNativeMethods.cs" />
+    <Compile Include="NativeMethods\Shell32NativeMethods.cs" />
+    <Compile Include="NativeMethods\ShlwapiNativeMethods.cs" />
+    <Compile Include="NativeMethods\Sqlite3NativeMethods.cs" />
+    <Compile Include="NativeMethods\SrClientNativeMethods.cs" />
+    <Compile Include="NativeMethods\Structs.cs" />
+    <Compile Include="NativeMethods\User32NativeMethods.cs" />
+    <Compile Include="NativeMethods\UserenvNativeMethods.cs" />
+    <Compile Include="NativeMethods\VersionNativeMethods.cs" />
+    <Compile Include="NativeMethods\WininetNativeMethods.cs" />
+    <Compile Include="NativeMethods\WintrustNativeMethods.cs" />
+    <Compile Include="Scanning\AlternateDataStreamScan.cs" />
+    <Compile Include="Scanning\AccountScan\UserAccountScan.cs" />
+    <Compile Include="Scanning\DetailedSystemScan.cs" />
+    <Compile Include="Scanning\DisabledDevicesScan.cs" />
+    <Compile Include="Scanning\DriverScan\DriverScanHandler.cs" />
+    <Compile Include="Scanning\EventLogScan.cs" />
+    <Compile Include="Scanning\FaultyDevicesScan.cs" />
+    <Compile Include="Scanning\FileScan\CreatedLastFileScanner.cs" />
+    <Compile Include="Scanning\FileScan\FileSignatureScan.cs" />
+    <Compile Include="Scanning\FirewallRulesScan.cs" />
+    <Compile Include="Scanning\FolderScan\DirectoryEnum.cs" />
+    <Compile Include="Scanning\InstalledProgramsScan.cs" />
+    <Compile Include="Scanning\RegistryBlacklistScan.cs" />
+    <Compile Include="Scanning\RegistryScan\AeDebug.cs" />
+    <Compile Include="Scanning\RegistryScan\AMSI.cs" />
+    <Compile Include="Scanning\RegistryScan\AppCompatFlags.cs" />
+    <Compile Include="Scanning\RegistryScan\AppContainer.cs" />
+    <Compile Include="Scanning\RegistryScan\AppModel.cs" />
+    <Compile Include="Scanning\RegistryScan\AutoplayHandlers.cs" />
+    <Compile Include="Scanning\RegistryScan\BCD.cs" />
+    <Compile Include="Scanning\RegistryScan\BFE.cs" />
+    <Compile Include="Scanning\RegistryScan\BITS.cs" />
+    <Compile Include="Scanning\RegistryScan\BootVerification.cs" />
+    <Compile Include="Scanning\RegistryScan\CodeStoreDatabase.cs" />
+    <Compile Include="Scanning\RegistryScan\Control.cs" />
+    <Compile Include="Scanning\RegistryScan\Cryptography.cs" />
+    <Compile Include="Scanning\RegistryScan\CTF.cs" />
+    <Compile Include="Scanning\RegistryScan\DNSCache.cs" />
+    <Compile Include="Scanning\RegistryScan\EventLog.cs" />
+    <Compile Include="Scanning\RegistryScan\Filter.cs" />
+    <Compile Include="Scanning\RegistryScan\FontDrivers.cs" />
+    <Compile Include="Scanning\RegistryScan\Hivelist.cs" />
+    <Compile Include="Scanning\RegistryScan\i8042prt.cs" />
+    <Compile Include="Scanning\RegistryScan\Ialm.cs" />
+    <Compile Include="Scanning\RegistryScan\IAS.cs" />
+    <Compile Include="Scanning\RegistryScan\IniFileMapping.cs" />
+    <Compile Include="Scanning\RegistryScan\Installer.cs" />
+    <Compile Include="Scanning\RegistryScan\KeyboardLayout.cs" />
+    <Compile Include="Scanning\RegistryScan\MpsSvc.cs" />
+    <Compile Include="Scanning\RegistryScan\NetBt.cs" />
+    <Compile Include="Scanning\RegistryScan\NetSh.cs" />
+    <Compile Include="Scanning\RegistryScan\NetworkProvider.cs" />
+    <Compile Include="Scanning\RegistryScan\Notepad.cs" />
+    <Compile Include="Scanning\RegistryScan\Print.cs" />
+    <Compile Include="Scanning\RegistryScan\Scripts.cs" />
+    <Compile Include="Scanning\RegistryScan\SessionManager.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellEx.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellExecuteHooks.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellExtensions.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellFolder.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellIconOverlayIdentifiers.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellServiceObjectDelayLoad.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellServiceObjects.cs" />
+    <Compile Include="Scanning\RegistryScan\SilentProcessExit.cs" />
+    <Compile Include="Scanning\RegistryScan\SrService.cs" />
+    <Compile Include="Scanning\RegistryScan\Startup.cs" />
+    <Compile Include="Scanning\RegistryScan\Svchost.cs" />
+    <Compile Include="Scanning\RegistryScan\SystemSelect.cs" />
+    <Compile Include="Scanning\RegistryScan\SystemSetup.cs" />
+    <Compile Include="Scanning\RegistryScan\Tasks.cs" />
+    <Compile Include="Scanning\RegistryScan\Tcpip.cs" />
+    <Compile Include="Scanning\RegistryScan\TerminalServer.cs" />
+    <Compile Include="Scanning\WindowsDefenderEventScan.cs" />
+    <Compile Include="Scripting\AccountDeletion.cs" />
+    <Compile Include="Scanning\AccountScan\AccountHelper.cs" />
+    <Compile Include="Backup\RecoveryHandler.cs" />
+    <Compile Include="Blacklist\Blacklist.cs" />
+    <Compile Include="Scanning\CDEmulatorSoftwareScan.cs" />
+    <Compile Include="Scanning\P2PSoftwareScan.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\DefaultBrowserScan.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\InternetExplorer\InternetExplorerExtraContextMenuScan.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\InternetExplorer\InternetExplorerExtraToolsScan.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\InternetExplorer\InternetExplorerScan.cs" />
+    <Compile Include="Scanning\RegistryScan\CommandProcessorHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\CredentialProvidersScan.cs" />
+    <Compile Include="Scanning\RegistryScan\DNSDHCPScan.cs" />
+    <Compile Include="Scanning\RegistryScan\DNSNameServerScan.cs" />
+    <Compile Include="Scanning\RegistryScan\DownloadedProgramFilesScan.cs" />
+    <Compile Include="Scanning\RegistryScan\GroupPolicyScan.cs" />
+    <Compile Include="Scanning\RegistryScan\LayeredServiceProvidersScan.cs" />
+    <Compile Include="Scanning\RegistryScan\ProtocolsScan.cs" />
+    <Compile Include="Scanning\RegistryScan\ShellScan.cs" />
+    <Compile Include="Scanning\RegistryScan\TcpipInterfacesScan.cs" />
+    <Compile Include="Scanning\ServicesScan\ServicesScan.cs" />
+    <Compile Include="Scanning\SystemScan\DeviceHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\EnvironmentHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\ExplorerKeyHandler.cs" />
+    <Compile Include="Scripting\AlternateDataStreamsFix.cs" />
+    <Compile Include="Scripting\BackupScripting.cs" />
+    <Compile Include="Scripting\Directives\ADSDirective.cs" />
+    <Compile Include="Scripting\Directives\AtJobDirective.cs" />
+    <Compile Include="Scripting\Directives\AWFDirective.cs" />
+    <Compile Include="Scripting\Directives\BackupCopyDirective.cs" />
+    <Compile Include="Scripting\Directives\BatchDirective.cs" />
+    <Compile Include="Scripting\Directives\ChromeDirective.cs" />
+    <Compile Include="Scripting\Directives\ClearEventLogDirective.cs" />
+    <Compile Include="Scripting\Directives\CollectDirective.cs" />
+    <Compile Include="Scripting\Directives\CommandDirective.cs" />
+    <Compile Include="Scripting\Directives\CopyDirective.cs" />
+    <Compile Include="Scripting\Directives\CreateDummyDirective.cs" />
+    <Compile Include="Scripting\Directives\DeleteJunctionsDirective.cs" />
+    <Compile Include="Scripting\Directives\DeleteQuarantineDirective.cs" />
+    <Compile Include="Scripting\Directives\DeleteRegistryKeyDirective.cs" />
+    <Compile Include="Scripting\Directives\DeQuarantineDirective.cs" />
+    <Compile Include="Scripting\Directives\DeleteRegistryValueDirective.cs" />
+    <Compile Include="Scripting\Directives\DomainsDirective.cs" />
+    <Compile Include="Scripting\Directives\DriverDirective.cs" />
+    <Compile Include="Scripting\Directives\EdgeDirective.cs" />
+    <Compile Include="Scripting\Directives\EmptyTempDirective.cs" />
+    <Compile Include="Scripting\Directives\ExportRegistryKeyDirective.cs" />
+    <Compile Include="Scripting\Directives\ExportRegValueDirective.cs" />
+    <Compile Include="Scripting\Directives\ExtraDirective.cs" />
+    <Compile Include="Scripting\Directives\FakeSmokeDirective.cs" />
+    <Compile Include="Scripting\Directives\FileLookDirective.cs" />
+    <Compile Include="Scripting\Directives\FindFolderDirective.cs" />
+    <Compile Include="Scripting\Directives\FirefoxDirective.cs" />
+    <Compile Include="Scripting\Directives\FixWSSDirective.cs" />
+    <Compile Include="Scripting\Directives\FolderLookDirective.cs" />
+    <Compile Include="Scripting\Directives\HostsDirective.cs" />
+    <Compile Include="Scripting\Directives\KillAllDirective.cs" />
+    <Compile Include="Scripting\Directives\ListFilePermissionsDirective.cs" />
+    <Compile Include="Scripting\Directives\ListFolderPermissionsDirective.cs" />
+    <Compile Include="Scripting\Directives\ListRegPermissionDirective.cs" />
+    <Compile Include="Scripting\Directives\LockedRegDeleteDirective.cs" />
+    <Compile Include="Scripting\Directives\MBRDirective.cs" />
+    <Compile Include="Scripting\Directives\MBRLookDirective.cs" />
+    <Compile Include="Scripting\Directives\MissingDirective.cs" />
+    <Compile Include="Scripting\Directives\MoveDirective.cs" />
+    <Compile Include="Scripting\Directives\NetSvcDirective.cs" />
+    <Compile Include="Scripting\Directives\NoOrphanRemovalDirective.cs" />
+    <Compile Include="Scripting\Directives\PowershellDirective.cs" />
+    <Compile Include="Scripting\Directives\PowershellScriptBuilderDirective.cs" />
+    <Compile Include="Scripting\Directives\PowershellScriptDirective.cs" />
+    <Compile Include="Scripting\Directives\ProcessDirective.cs" />
+    <Compile Include="Scripting\Directives\QuickQuitDirective.cs" />
+    <Compile Include="Scripting\Directives\RebootDirective.cs" />
+    <Compile Include="Scripting\Directives\RegeditDirective.cs" />
+    <Compile Include="Scripting\Directives\RegistryDirective.cs" />
+    <Compile Include="Scripting\Directives\RegNullDirective.cs" />
+    <Compile Include="Scripting\Directives\RegUnlockDirective.cs" />
+    <Compile Include="Scripting\Directives\RemoveProxyDirective.cs" />
+    <Compile Include="Scripting\Directives\RenVDirective.cs" />
+    <Compile Include="Scripting\Directives\RestoreFromBackupDirective.cs" />
+    <Compile Include="Scripting\Directives\RootkitDirective.cs" />
+    <Compile Include="Scripting\Directives\SecurityDirective.cs" />
+    <Compile Include="Scripting\Directives\ServiceDirective.cs" />
+    <Compile Include="Scripting\Directives\SetPermissionsDirective.cs" />
+    <Compile Include="Scripting\Directives\SignatureCheckDirective.cs" />
+    <Compile Include="Scripting\Directives\SkipFixDirective.cs" />
+    <Compile Include="Scripting\Directives\SnapShotAltDirective.cs" />
+    <Compile Include="Scripting\Directives\SnapShotDirective.cs" />
+    <Compile Include="Scripting\Directives\SRCopyDirective.cs" />
+    <Compile Include="Scripting\Directives\StepDeleteDirective.cs" />
+    <Compile Include="Scripting\Directives\SuspectDirective.cs" />
+    <Compile Include="Scripting\Directives\SymLinkDirective.cs" />
+    <Compile Include="Scripting\Directives\SystemRestoreDirective.cs" />
+    <Compile Include="Scripting\Directives\SystemRestoreOnOffDirectives.cs" />
+    <Compile Include="Scripting\Directives\TaskDetailsDirective.cs" />
+    <Compile Include="Scripting\Directives\TDLDirective.cs" />
+    <Compile Include="Scripting\Directives\TestSigningOnDirective.cs" />
+    <Compile Include="Scripting\Directives\UnlockDirective.cs" />
+    <Compile Include="Scripting\Directives\VBScriptDirective.cs" />
+    <Compile Include="Scripting\Directives\VirusScanDirective.cs" />
+    <Compile Include="Scripting\Directives\VundoDirective.cs" />
+    <Compile Include="Scripting\Directives\ZipDirective.cs" />
+    <Compile Include="Scripting\ProcessFix.cs" />
+    <Compile Include="Scripting\RegistryUtilsScript.cs" />
+    <Compile Include="Scripting\RegistryFix\AppCertFix.cs" />
+    <Compile Include="Scripting\RegistryFix\AppInitDllsFix.cs" />
+    <Compile Include="Scripting\BrowserHelperObjectFix.cs" />
+    <Compile Include="Scripting\Browsers\BrowserStartFix.cs" />
+    <Compile Include="Scripting\Browsers\GoogleChrome\ChromeFix.cs" />
+    <Compile Include="Scripting\Browsers\Internet Explorer\InternetExplorerPrefixFix.cs" />
+    <Compile Include="Scripting\Browsers\Internet Explorer\InternetExplorerSessionFix.cs" />
+    <Compile Include="Scripting\Browsers\Internet Explorer\InternetExplorerToolbarFix.cs" />
+    <Compile Include="Scripting\Browsers\Internet Explorer\InternetExplorerURLSearchFix.cs" />
+    <Compile Include="Scripting\Browsers\Internet Explorer\InternetExplorerZoneSitesFix.cs" />
+    <Compile Include="Scripting\Browsers\MicrosoftEdge\EdgeFix.cs" />
+    <Compile Include="Scripting\Browsers\MozillaFirefox\FirefoxFix.cs" />
+    <Compile Include="Scripting\Browsers\SearchScopeFix.cs" />
+    <Compile Include="Scripting\DirectoryFix.cs" />
+    <Compile Include="Scripting\FileExtensionHandler.cs" />
+    <Compile Include="Scripting\RegistryFix\ActiveSetupFixer.cs" />
+    <Compile Include="Scanning\RegistryScan\ActiveSetupHandler.cs" />
+    <Compile Include="Scanning\FileScan\ADSHandler.cs" />
+    <Compile Include="Scripting\RegistryFix\AlternateShellFix.cs" />
+    <Compile Include="Scanning\RegistryScan\AppCertHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\AppInitHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\IFEOHandler.cs" />
+    <Compile Include="Scripting\FileFix.cs" />
+    <Compile Include="Scripting\HostsFix.cs" />
+    <Compile Include="Scripting\InterfacesHandler.cs" />
+    <Compile Include="Scanning\SystemScan\LoadedModulesHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\MountpointsHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\MSCOREEHandler.cs" />
+    <Compile Include="Scripting\Browsers\Internet Explorer\InternetExplorerMainFix.cs" />
+    <Compile Include="Scripting\Browsers\Internet Explorer\InternetExplorerPolicyFix.cs" />
+    <Compile Include="Scripting\NameServerHandler.cs" />
+    <Compile Include="Scripting\OpenWithProgIdsHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\ProfilesListHandler.cs" />
+    <Compile Include="Scanning\AccountScan\LoggedInUsersHandler.cs" />
+    <Compile Include="Handlers\RegistryHandlers\RegistryKeyHandler.cs" />
+    <Compile Include="Handlers\RegistryHandlers\RegistryRecoveryHandler.cs" />
+    <Compile Include="Handlers\RegistryHandlers\RegistrySubKeyHandler.cs" />
+    <Compile Include="Handlers\RegistryHandlers\RegistryUserHandler.cs" />
+    <Compile Include="Handlers\RegistryHandlers\RegistryValueHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\RunHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SafebootHandler.cs" />
+    <Compile Include="Scripting\RegistryFix\AuthenticsFix.cs" />
+    <Compile Include="Scripting\RegistryFix\CertificateFix.cs" />
+    <Compile Include="Scripting\RegistryFix\CommandProcessorFix.cs" />
+    <Compile Include="Scripting\RegistryFix\Drivers32Fix.cs" />
+    <Compile Include="Scripting\RegistryFix\FilterFix.cs" />
+    <Compile Include="Scripting\RegistryFix\FirewallFix.cs" />
+    <Compile Include="Scripting\RegistryFix\IFEOFix.cs" />
+    <Compile Include="Scripting\RegistryFix\MountpointsFix.cs" />
+    <Compile Include="Scripting\RegistryFix\MSConfigFix.cs" />
+    <Compile Include="Scripting\RegistryFix\NetworkServiceFix.cs" />
+    <Compile Include="Scripting\RegistryFix\PDFProcessorFix.cs" />
+    <Compile Include="Scripting\RegistryFix\PoliciesFix.cs" />
+    <Compile Include="Scripting\RegistryFix\PrinterMonitorFix.cs" />
+    <Compile Include="Scripting\RegistryFix\PrinterProcessorFix.cs" />
+    <Compile Include="Scripting\RegistryFix\ProviderFix.cs" />
+    <Compile Include="Scripting\RegistryFix\RunFix.cs" />
+    <Compile Include="Scripting\RegistryFix\SafebootFix.cs" />
+    <Compile Include="Scripting\RegistryFix\SEHFix.cs" />
+    <Compile Include="Scripting\RegistryFix\SHIMFix.cs" />
+    <Compile Include="Scripting\RegistryFix\SIOIFix.cs" />
+    <Compile Include="Scripting\RegistryFix\SSOFix.cs" />
+    <Compile Include="Scripting\RegistryFix\SubFix.cs" />
+    <Compile Include="Scripting\RegistryFix\UninstallFix.cs" />
+    <Compile Include="Scripting\RegistryFix\UserinitFix.cs" />
+    <Compile Include="Scripting\RegistryFix\WinlogonFix.cs" />
+    <Compile Include="Scripting\RegistryFix\WinsockFix.cs" />
+    <Compile Include="Scripting\ScreenSaverHandler.cs" />
+    <Compile Include="Scripting\ScriptHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\SearchScopeHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SEHHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SessionManagerHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SHIMHandler.cs" />
+    <Compile Include="Scanning\SystemScan\ShutdownHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SIOIHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SSOHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SubHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\TerminalServerHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\UninstallKeyHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\UserinitHandler.cs" />
+    <Compile Include="Scanning\AccountScan\UserUtils.cs" />
+    <Compile Include="Scripting\ScriptProcessor.cs" />
+    <Compile Include="Scripting\ServicesFix.cs" />
+    <Compile Include="Scripting\ShortcutFix.cs" />
+    <Compile Include="Utilities\ArrayUtils.cs" />
+    <Compile Include="Scanning\RegistryScan\AuthenticationHandler.cs" />
+    <Compile Include="Scripting\AutoConfigUrlHandler.cs" />
+    <Compile Include="Backup\BackupManager.cs" />
+    <Compile Include="Utilities\DateUtils.cs" />
+    <Compile Include="Utilities\SystemUtils.cs" />
+    <Compile Include="Utilities\TupleStringComparer.cs" />
+    <Compile Include="Whitelist\FileWhitelist.cs" />
+    <Compile Include="Whitelist\FirewallRulesWhitelist.cs" />
+    <Compile Include="Whitelist\FolderWhitelist.cs" />
+    <Compile Include="Whitelist\InstalledProgramWhitelist.cs" />
+    <Compile Include="Whitelist\LoadedModuleWhitelist.cs" />
+    <Compile Include="Whitelist\ProcessWhitelist.cs" />
+    <Compile Include="Whitelist\RegistryEntryWhitelist.cs" />
+    <Compile Include="Whitelist\ScheduledTaskWhitelist.cs" />
+    <Compile Include="Wildlands\BootAccessManagementHandler.cs" />
+    <Compile Include="Whitelist\WhitelistBAM.cs" />
+    <Compile Include="Scanning\RegistryScan\FileAssociations.cs" />
+    <Compile Include="Scanning\SystemScan\BCDHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\BHOHandler.cs" />
+    <Compile Include="Blacklist\BlacklistDrv.cs" />
+    <Compile Include="Blacklist\BlacklistSrv.cs" />
+    <Compile Include="Scripting\BootExecuteFix.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\BrowserStartHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\CertificateHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\ChromeHandler.cs" />
+    <Compile Include="CMDUP.cs" />
+    <Compile Include="Wildlands\CodeIntegrityHandler.cs" />
+    <Compile Include="Scanning\SystemScan\CommandHandler.cs" />
+    <Compile Include="Utilities\CryptUtils.cs" />
+    <Compile Include="Scanning\SystemScan\DeviceToDriveTranslator.cs" />
+    <Compile Include="Scanning\FolderScan\DirectoryHandler.cs" />
+    <Compile Include="Scripting\DisallowRunFix.cs" />
+    <Compile Include="Utilities\DirectoryUtils.cs" />
+    <Compile Include="Utilities\DiskUtils.cs" />
+    <Compile Include="Scripting\DnsPolicyFix.cs" />
+    <Compile Include="Scanning\RegistryScan\Drivers32Handler.cs" />
+    <Compile Include="Scripting\DummyHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\EdgeHandler.cs" />
+    <Compile Include="Wildlands\ErrorHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\FilterHandler.cs" />
+    <Compile Include="Wildlands\Finalizer.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\FirefoxHandler.cs" />
+    <Compile Include="Scanning\FileScan\HOSTSHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\InternetExplorer\InternetExplorerHandler.cs" />
+    <Compile Include="Wildlands\Logger.cs" />
+    <Compile Include="Scanning\RegistryScan\LsaHandler.cs" />
+    <Compile Include="Scanning\SystemScan\MBRHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\MSConfigHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\NetworkAdapterHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\NetworkServiceHandler.cs" />
+    <Compile Include="Scripting\Browsers\OperaFix.cs" />
+    <Compile Include="Scanning\SystemScan\OperatingSystemHandler.cs" />
+    <Compile Include="Scanning\SystemScan\PartitionTableHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\PDFProcessorHandler.cs" />
+    <Compile Include="Scripting\PerRouteHandler.cs" />
+    <Compile Include="Scanning\SystemScan\PowerShellHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\PrinterMonitorHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\PrinterProcessorHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\ProviderHandler.cs" />
+    <Compile Include="Scripting\ProxyEnableFixHandler.cs" />
+    <Compile Include="Scripting\ProxyRemovalHandler.cs" />
+    <Compile Include="Scripting\ProxyServerFixHandler.cs" />
+    <Compile Include="Wildlands\QuarantineHandler.cs" />
+    <Compile Include="Scanning\SystemScan\RebootHandler.cs" />
+    <Compile Include="Scripting\SearchOperations.cs" />
+    <Compile Include="Scanning\SystemScan\SecurityCenterHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\SecurityProviderHandler.cs" />
+    <Compile Include="Whitelist\ServiceWhitelist.cs" />
+    <Compile Include="Scanning\FileScan\ShortcutHandler.cs" />
+    <Compile Include="Scanning\FolderScan\StartupFolderHandler.cs" />
+    <Compile Include="Scanning\SystemScan\SystemEventLogHandler.cs" />
+    <Compile Include="Scanning\SystemScan\SystemRestoreHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\TelephonyHandler.cs" />
+    <Compile Include="Scripting\TempCleaner.cs" />
+    <Compile Include="Scripting\EnvironmentFix.cs" />
+    <Compile Include="Utilities\EventLogUtilities.cs" />
+    <Compile Include="Utilities\FileUtils.cs" />
+    <Compile Include="Scanning\RegistryScan\FirewallHandler.cs" />
+    <Compile Include="Scripting\FixManager.cs" />
+    <Compile Include="MainApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainApp.Designer.cs">
+      <DependentUpon>MainApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\HeapUtil.cs" />
+    <Compile Include="Scripting\HistoryHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\InspectPackagesHandler.cs" />
+    <Compile Include="Scripting\JottiScanHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\KnownDllHandler.cs" />
+    <Compile Include="Utilities\ListUtils.cs" />
+    <Compile Include="Utilities\PathUtils.cs" />
+    <Compile Include="Scanning\RegistryScan\PolicyHandler.cs" />
+    <Compile Include="Utilities\ProcessUtils.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Scanning\RegistryScan\ProgramScanner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wildlands\RecoveryTool.cs" />
+    <Compile Include="Utilities\RegistryUtils.cs" />
+    <Compile Include="Utilities\SecurityUtils.cs" />
+    <Compile Include="Scanning\ServicesScan\ServiceHandler.cs" />
+    <Compile Include="Scanning\SystemScan\ShadowCopyQueryHandler.cs" />
+    <Compile Include="Scanning\SystemScan\ShellRecycleBinHandler.cs" />
+    <Compile Include="Utilities\SQLiteUtils.cs" />
+    <Compile Include="Scanning\RegistryScan\SymlinkHandler.cs" />
+    <Compile Include="Scanning\SystemScan\SystemOperations.cs" />
+    <Compile Include="Scanning\ServicesScan\SystemScanner.cs" />
+    <Compile Include="Scanning\RegistryScan\TaskSchedulerHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\TaskHandler.cs" />
+    <Compile Include="Utilities\TimerUtils.cs" />
+    <Compile Include="Scanning\RegistryScan\Browsers\InternetExplorer\InternetExplorerToolbarScan.cs" />
+    <Compile Include="Scanning\AccountScan\UnlockHandler.cs" />
+    <Compile Include="Wildlands\UpdateHandler.cs" />
+    <Compile Include="Utilities\ServiceUtils.cs" />
+    <Compile Include="Utilities\Utility.cs" />
+    <Compile Include="Wildlands\VersionHandler.cs" />
+    <Compile Include="Scanning\SystemScan\VolumeEncryptionHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\WallpaperHandler.cs" />
+    <Compile Include="Whitelist\WhitelistDll.cs" />
+    <Compile Include="Whitelist\DriverWhitelist.cs" />
+    <Compile Include="Whitelist\WhitelistReg.cs" />
+    <Compile Include="Scanning\SystemScan\WinDefenderEventHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\WindowsDefenderPolicyHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\WinLogonHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\WinSockHandler.cs" />
+    <Compile Include="Scanning\RegistryScan\WinTrustHandler.cs" />
+    <Compile Include="Scanning\SystemScan\WMIHandler.cs" />
+    <Compile Include="Utilities\ZipUtils.cs" />
+    <EmbeddedResource Include="MainApp.resx">
+      <DependentUpon>MainApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include=".editorconfig" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="NetFwTypeLib">
+      <Guid>{58FBCF7C-E7A9-467C-80B3-FC65E8FCCA08}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="TaskScheduler">
+      <Guid>{E34CB9F1-C7F7-424C-BE29-027DCC09363A}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
